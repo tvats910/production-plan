@@ -14,3 +14,13 @@ while the demand for 13th , 14th feb was tentative and one extra day
 the actual demand of every day so that i can find the confidence 
 interval...............but now the problem is  that it may happen t
 hat a part demanded today may not be demanded tomorrow
+
+
+
+wait i had file on 11th feb that have demand for 12th, 13th, and 14th feb i 
+added all these in ppc_plan file but on 12th feb if some new parts are demanded 
+but some parts from the 11th feb file are not demanded that is they are not 
+mentioned in the file my concern is that i should add the new parts in the 
+ppc_plan file adn the parts which are not demnaded their value for that day should be 0
+the structure of the demand file ..........let me explain...........
+Material | 2026-02-04 Total Production Plan | 2026-02-05 Total Production Plan | 2026-02-06 Total Production Plan 
