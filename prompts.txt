@@ -1,0 +1,16 @@
+one file has demand for 3 days that is if i get the file today 
+that is 11th feb then that file have the demand for 12,13 and 
+14 feb the demand fo 12th feb will be the actual demand while 
+the demnad of next two days is tentative...........on 12th feb
+ i will get the demand again for the next three days i.e 13th, 
+14th and 15th feb , the demand of 13th feb will be the actual 
+while the demand for 14th and 15th feb is tentative.............i 
+am making 2 files named PPC_PLAN and PLAN_ACTUAL............in ppc_plan
+ i will add the data as like on 11th feb i added the demand of 12th,
+ 13th and 14th feb,then on 12th feb i will update the demand of 13th, 
+14th and 15th feb in ppc_plan file as the demand of 12th was actual 
+while the demand for 13th , 14th feb was tentative and one extra day 
+15th feb will get added..........in plan_actual file i will update 
+the actual demand of every day so that i can find the confidence 
+interval...............but now the problem is  that it may happen t
+hat a part demanded today may not be demanded tomorrow
