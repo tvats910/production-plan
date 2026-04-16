@@ -1,0 +1,48 @@
+In Scenario 3 (all healthy), OPD cap = 5 days.
+
+If inventory is already ≥ 5 days, parts are skipped.
+
+This can cause idle machines because the system refuses to build buffer beyond target ceiling.
+
+
+Smart Fixes to Keep Machines Running
+1. Priority Beyond OPD Cap
+Even if a part is at ceiling, compute its priority score.
+
+Select the highest scoring parts and continue production for buffer stock.
+
+This ensures machines never idle — they build “strategic surplus.”
+
+
+2. Idle-Fill Strategy
+After normal scheduling, check each machine’s unused hours.
+
+If idle hours remain, either increase the running hours of current parts or assign secondary parts:
+
+Parts at ceiling.
+
+Low-priority parts normally skipped.
+
+This converts idle time into productive buffer building.
+
+4. Dynamic Skip Relaxation
+Instead of hard skip at ceiling, downgrade priority but still allow scheduling if machine would otherwise be idle.
+
+Example: “Inventory ≥ 5 days → priority reduced by 50%, but not skipped.”
+
+
+The Challenge & Opportunity
+Best condition: all parts at OPD cap.
+
+Best challenge: keep machines running smoothly without violating constraints.
+
+This is where the system should pivot from survival mode (meeting safety floors) to efficiency mode (maximizing utilization and building resilience).
+
+
+Add a post-scheduling utilization check:
+
+If any machine has idle hours → fill with highest-priority parts, even if at OPD cap.
+
+If changeover cap reached → increase the running hours of current parts and no machine should be idle
+
+This guarantees no machine is left idle and the plant runs at full capacity.
