@@ -1,48 +1,27 @@
-In Scenario 3 (all healthy), OPD cap = 5 days.
+Why the Code Allows Multi‑Machine Planning
+Tool Availability Not Enforced in Scheduling Logic
 
-If inventory is already ≥ 5 days, parts are skipped.
+The code builds tools_available[p] correctly (defaulting to 1 if blank).
 
-This can cause idle machines because the system refuses to build buffer beyond target ceiling.
+But later, when compatibility (vt_compat) is used to assign parts to machines, there’s no check that the number of machines used ≤ tools_available[p].
 
+In other words, compatibility says “this part can run here,” but the planner doesn’t enforce “this part may
+ only run on X machines because only X tools exist.”
 
-Smart Fixes to Keep Machines Running
-1. Priority Beyond OPD Cap
-Even if a part is at ceiling, compute its priority score.
+Strategic Buffer Mode
 
-Select the highest scoring parts and continue production for buffer stock.
+In efficiency mode, machines are forced to keep busy. Without a constraint, the same part can be spread across multiple machines even if one machine already covered the indent.
 
-This ensures machines never idle — they build “strategic surplus.”
+On the floor, tool count = concurrency limit:
 
+If a part has 1 tool, it can only run on 1 machine at a time.
 
-2. Idle-Fill Strategy
-After normal scheduling, check each machine’s unused hours.
+If a part has 6 tools, it can run on up to 6 machines simultaneously, but planners still prefer to minimize tool spread (to reduce COs and simplify flow).
 
-If idle hours remain, either increase the running hours of current parts or assign secondary parts:
+The guiding principle: meet demand with the minimum number of tools/machines possible.
 
-Parts at ceiling.
+Machine assignment must respect tool count.
 
-Low-priority parts normally skipped.
+Planning must respect minimum tool usage principle (don’t split unnecessarily).
 
-This converts idle time into productive buffer building.
-
-4. Dynamic Skip Relaxation
-Instead of hard skip at ceiling, downgrade priority but still allow scheduling if machine would otherwise be idle.
-
-Example: “Inventory ≥ 5 days → priority reduced by 50%, but not skipped.”
-
-
-The Challenge & Opportunity
-Best condition: all parts at OPD cap.
-
-Best challenge: keep machines running smoothly without violating constraints.
-
-This is where the system should pivot from survival mode (meeting safety floors) to efficiency mode (maximizing utilization and building resilience).
-
-
-Add a post-scheduling utilization check:
-
-If any machine has idle hours → fill with highest-priority parts, even if at OPD cap.
-
-If changeover cap reached → increase the running hours of current parts and no machine should be idle
-
-This guarantees no machine is left idle and the plant runs at full capacity.
+This aligns with shop‑floor reality: one tool = one machine, no matter how many machines are free.
